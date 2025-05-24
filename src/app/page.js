@@ -1,3 +1,4 @@
+// src/app/page.js
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -145,19 +146,19 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 p-6">
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-4xl font-extrabold text-white text-center mb-10 drop-shadow-lg">
+    <div className="min-h-screen bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 p-4 sm:p-6">
+      <div className="max-w-full sm:max-w-3xl mx-auto">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white text-center mb-6 sm:mb-8 md:mb-10 drop-shadow-lg">
           Todo App
         </h1>
         
         {/* Tabs */}
-        <div className="flex gap-2 mb-8 bg-white/10 backdrop-blur-lg rounded-lg p-2 shadow-lg">
+        <div className="flex flex-col sm:flex-row gap-2 mb-6 sm:mb-8 bg-white/10 backdrop-blur-lg rounded-lg p-2 shadow-lg">
           {['all', 'important', 'complete', 'archived'].map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`flex-1 py-2 px-4 rounded-md text-white font-medium transition-all duration-300 ${
+              className={`flex-1 py-2 px-3 sm:px-4 rounded-md text-white font-medium text-sm sm:text-base transition-all duration-300 ${
                 activeTab === tab
                   ? 'bg-blue-600/50 shadow-md'
                   : 'hover:bg-white/20'
@@ -169,16 +170,16 @@ export default function Home() {
         </div>
 
         {/* Add Todo Form */}
-        <form onSubmit={addTodo} className="mb-10">
-          <div className="flex gap-3 bg-white/10 backdrop-blur-lg rounded-lg p-4 shadow-lg">
+        <form onSubmit={addTodo} className="mb-6 sm:mb-8 md:mb-10">
+          <div className="flex flex-col sm:flex-row gap-3 bg-white/10 backdrop-blur-lg rounded-lg p-4 shadow-lg">
             <Input
               type="text"
               value={newTask}
               onChange={(e) => setNewTask(e.target.value)}
               placeholder="Add a new task..."
-              className="flex-1 bg-transparent text-white placeholder:text-gray-300"
+              className="flex-1 bg-transparent text-white text-sm sm:text-base placeholder:text-gray-300"
             />
-            <Button type="submit" className="bg-blue-600 hover:bg-blue-700">
+            <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-sm sm:text-base">
               Add Task
             </Button>
           </div>
@@ -187,14 +188,14 @@ export default function Home() {
         {/* Todo List */}
         <div className="space-y-4">
           {filteredTodos.length === 0 ? (
-            <p className="text-white text-center opacity-80">
+            <p className="text-white text-center opacity-80 text-sm sm:text-base">
               No tasks in this category.
             </p>
           ) : (
             filteredTodos.map(todo => (
               <div
                 key={todo.id}
-                className={`flex items-center gap-4 p-4 bg-white/20 backdrop-blur-lg rounded-lg shadow-md transition-all duration-300 hover:shadow-xl ${
+                className={`flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 p-4 bg-white/20 backdrop-blur-lg rounded-lg shadow-md transition-all duration-300 hover:shadow-xl ${
                   todo.is_completed ? 'opacity-70' : ''
                 } ${todo.is_archived ? 'bg-gray-500/20' : ''}`}
               >
@@ -203,7 +204,7 @@ export default function Home() {
                   checked={todo.is_completed}
                   onCheckedChange={() => toggleComplete(todo.id, todo.is_completed)}
                   disabled={todo.is_archived}
-                  className="border-white/50"
+                  className="border-white/50 mt-1 sm:mt-0"
                 />
 
                 {/* Task text or edit input */}
@@ -211,11 +212,11 @@ export default function Home() {
                   <Input
                     value={editTask}
                     onChange={(e) => setEditTask(e.target.value)}
-                    className="flex-1 bg-transparent text-white placeholder:text-gray-300"
+                    className="flex-1 bg-transparent text-white text-sm sm:text-base placeholder:text-gray-300"
                     autoFocus
                   />
                 ) : (
-                  <span className={`flex-1 text-white text-lg ${
+                  <span className={`flex-1 text-white text-sm sm:text-lg ${
                     todo.is_completed ? 'line-through' : ''
                   }`}>
                     {todo.task}
@@ -223,7 +224,7 @@ export default function Home() {
                 )}
 
                 {/* Action buttons */}
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-wrap justify-start sm:justify-end">
                   {!todo.is_archived && (
                     <>
                       {editingId === todo.id ? (
@@ -231,7 +232,7 @@ export default function Home() {
                           variant="outline"
                           size="sm"
                           onClick={() => updateTodo(todo.id)}
-                          className="border-white/50 text-white hover:bg-blue-600/50"
+                          className="border-white/50 text-white hover:bg-blue-600/50 text-xs sm:text-sm"
                         >
                           Save
                         </Button>
@@ -243,7 +244,7 @@ export default function Home() {
                             setEditingId(todo.id);
                             setEditTask(todo.task);
                           }}
-                          className="border-white/50 text-white hover:bg-blue-600/50"
+                          className="border-white/50 text-white hover:bg-blue-600/50 text-xs sm:text-sm"
                         >
                           <Edit className="h-4 w-4" />
                         </Button>
@@ -252,7 +253,7 @@ export default function Home() {
                         variant="outline"
                         size="sm"
                         onClick={() => toggleImportant(todo.id, todo.is_important)}
-                        className="border-white/50 text-white hover:bg-yellow-600/50"
+                        className="border-white/50 text-white hover:bg-yellow-600/50 text-xs sm:text-sm"
                       >
                         <Star
                           className={`h-4 w-4 ${
@@ -266,7 +267,7 @@ export default function Home() {
                     variant="outline"
                     size="sm"
                     onClick={() => toggleArchive(todo.id, todo.is_archived)}
-                    className="border-white/50 text-white hover:bg-gray-600/50"
+                    className="border-white/50 text-white hover:bg-gray-600/50 text-xs sm:text-sm"
                   >
                     <Archive className="h-4 w-4" />
                   </Button>
@@ -274,7 +275,7 @@ export default function Home() {
                     variant="outline"
                     size="sm"
                     onClick={() => deleteTodo(todo.id)}
-                    className="border-white/50 text-white hover:bg-red-600/50"
+                    className="border-white/50 text-white hover:bg-red-600/50 text-xs sm:text-sm"
                   >
                     <Trash className="h-4 w-4" />
                   </Button>
