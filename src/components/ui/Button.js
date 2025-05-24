@@ -1,4 +1,3 @@
-// components/ui/button.js
 'use client';
 
 import * as React from 'react';
